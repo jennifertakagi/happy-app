@@ -23,6 +23,10 @@ export default function CreateOrphanage() {
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
+  /**
+   * Handles with click ion map
+   * @param {LeafletMouseEvent} event 
+   */
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat: latitude, lng: longitude } = event.latlng;
 
@@ -32,6 +36,10 @@ export default function CreateOrphanage() {
     });
   }
 
+  /**
+   * Handles with select image
+   * @param {ChangeEvent} event 
+   */
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
     if (!event.target.files) {
       return;
@@ -46,6 +54,10 @@ export default function CreateOrphanage() {
     setPreviewImages(selectedImagesPreview);
   }
 
+  /**
+   * Handles with remove image event
+   * @param {Number} index 
+   */
   function handleRemoveImage(index: number) {
     const updatedImagePreview = previewImages.filter((image, compareIndex) => index !== compareIndex);
 
@@ -56,6 +68,10 @@ export default function CreateOrphanage() {
     setImages(updatedImages);
   }
 
+  /**
+   * Handles with submit click, creating a new orphanage
+   * @param {FormEvent} event 
+   */
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
