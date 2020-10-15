@@ -2,6 +2,11 @@ import Orphanage from '../models/Orphanage';
 import imagesView from './images_view';
 
 export default {
+  /**
+   * Render Orphanage's view
+   * @param {Orphanage} orphanage 
+   * @returns {Object} orphanage to be rendered
+   */
   render(orphanage: Orphanage) {
     return {
       id: orphanage.id,
@@ -16,6 +21,11 @@ export default {
     };
   },
 
+  /**
+   * Render Orphanages' view
+   * @param {Orphanage[]} orphanages
+   * @returns {Array} orphanages to be rendered
+   */
   renderMany(orphanages: Orphanage[]) {
     return orphanages.map(orphanage => this.render(orphanage));
   }

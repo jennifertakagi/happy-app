@@ -5,6 +5,11 @@ import orphanageView from '../views/orphanages_view';
 import * as Yup from 'yup';
 
 export default {
+  /**
+   * Gets the orphanages' list from database
+   * @param {Request} request request object
+   * @param {Response} response response object
+   */
   async index (request: Request, response: Response) {
     const orphanagesRepository = getRepository(Orphanage);
     const orphanages = await orphanagesRepository.find({
@@ -14,6 +19,11 @@ export default {
     return response.json(orphanageView.renderMany(orphanages))
   },
 
+  /**
+   * Shows an orphanage from database
+   * @param {Request} request request object
+   * @param {Response} response response object
+   */
   async show (request: Request, response: Response) {
     const { id } = request.params;
     const orphanagesRepository = getRepository(Orphanage);
@@ -24,6 +34,11 @@ export default {
     return response.json(orphanageView.render(orphanage))
   },
 
+  /**
+   * Creates a new orphanage on database
+   * @param {Request} request request object
+   * @param {Response} response response object
+   */
   async create (request: Request, response: Response) {
     const requestImages = request.files as Express.Multer.File[];
     const {

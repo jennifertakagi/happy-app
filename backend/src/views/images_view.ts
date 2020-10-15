@@ -1,6 +1,11 @@
 import Image from '../models/Image';
 
 export default {
+  /**
+   * Render Image's view
+   * @param {Image} image 
+   * @returns {Object} image to be rendered
+   */
   render(image: Image) {
     return {
       id: image.id,
@@ -8,6 +13,11 @@ export default {
     };
   },
 
+  /**
+   * Render Images' view
+   * @param {Image[]} orphanages
+   * @returns {Array} images to be rendered
+   */
   renderMany(images: Image[]) {
     return images.map(image => this.render(image));
   }
