@@ -112,9 +112,8 @@ export default function Orphanage() {
             <div className="open-details">
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
-                {/* eslint-disable-next-line */}
                 Segunda à Sexta <br />
-                8h às 18h
+                {orphanage.opening_hours}
               </div>
               {orphanage.open_on_weekends ? (
                 <div className="open-on-weekends">
@@ -126,7 +125,6 @@ export default function Orphanage() {
               ) : (
                 <div className="open-on-weekends dont-open">
                   <FiInfo size={32} color="#FF669D" />
-                  {/* eslint-disable-next-line */}
                   Não atendemos <br />
                   fim de semana
                 </div>

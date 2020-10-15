@@ -10,13 +10,13 @@ export default {
    * @param {Request} request request object
    * @param {Response} response response object
    */
-  async index (request: Request, response: Response) {
+   async index(request: Request, response: Response): Promise<Response> {
     const orphanagesRepository = getRepository(Orphanage);
     const orphanages = await orphanagesRepository.find({
       relations: ['images']
     });
 
-    return response.json(orphanageView.renderMany(orphanages))
+    return response.json(orphanageView.renderMany(orphanages));
   },
 
   /**
@@ -24,14 +24,14 @@ export default {
    * @param {Request} request request object
    * @param {Response} response response object
    */
-  async show (request: Request, response: Response) {
+   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const orphanagesRepository = getRepository(Orphanage);
     const orphanage = await orphanagesRepository.findOneOrFail(id, {
       relations: ['images']
     });
 
-    return response.json(orphanageView.render(orphanage))
+    return response.json(orphanageView.render(orphanage));
   },
 
   /**
@@ -39,8 +39,7 @@ export default {
    * @param {Request} request request object
    * @param {Response} response response object
    */
-  async create (request: Request, response: Response) {
-    const requestImages = request.files as Express.Multer.File[];
+   async create(request: Request, response: Response): Promise<Response> {
     const {
       name,
       latitude,
@@ -48,11 +47,17 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends
+      open_on_weekends,
     } = request.body;
 
-    const images = requestImages.map(image => ({ path: image.filename }))
     const orphanagesRepository = getRepository(Orphanage);
+    const requestImages = request.files as Express.Multer.File[];
+    
+    const images = requestImages.map(image => {
+      console.log(image)
+      return { path: image.filename };
+    });
+
     const data = {
       name,
       latitude,
@@ -60,9 +65,10 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends,
+      open_on_weekends: open_on_weekends === 'true',
       images
     };
+
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       latitude: Yup.number().required(),
@@ -83,9 +89,9 @@ export default {
     });
 
     const orphanage = orphanagesRepository.create(data);
-  
+
     await orphanagesRepository.save(orphanage);
-  
-    return response.status(201).json(orphanage);
-  }
-}
+
+    return response.json(orphanage).status(201);
+  },
+};
