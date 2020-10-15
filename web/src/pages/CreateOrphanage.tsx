@@ -108,7 +108,7 @@ export default function CreateOrphanage() {
             <legend>Dados</legend>
 
             <Map
-              center={[-27.5973931,-48.4887233]}
+              center={[-27.5975783,-48.5080836]}
               style={{ width: '100%', height: 280 }}
               zoom={15}
               onClick={handleMapClick}
